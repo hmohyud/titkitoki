@@ -4,7 +4,6 @@ import VideoScroller from "../../components/video/VideoScroller";
 import ScoreBox from "@/components/game/ScoreBox";
 import GameLogicWrapper from "@/components/game/logic/GameLogicWrapper";
 import { GameProvider } from "@/components/game/logic/GameProvider";
-import { useState } from "react";
 
 export default function Home() {
   return (

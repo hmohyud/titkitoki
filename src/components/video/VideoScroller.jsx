@@ -7,6 +7,7 @@ import GameTurnWrapper from "../game/GameTurnWrapper";
 import loadVideoIds from "../../scripts/loadVideos.js";
 import { shuffle } from "@/scripts/utils/array";
 import { useGameTurn } from "../game/logic/GameProvider";
+import StartTurnWrapper from "../game/StartTurnWrapper";
 
 const VideoScroller = () => {
   const [components, setComponents] = useState([]); // List of video URLs
@@ -107,7 +108,7 @@ const VideoScroller = () => {
 
     setComponents((prev) => [
       ...prev,
-      <GameTurnWrapper key={prev.length} initialSeq="g"/>,
+      <StartTurnWrapper key={prev.length} initialSeq="g"/>,
     ]);
 
     // Loads the videos Ids

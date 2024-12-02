@@ -9,6 +9,7 @@ import {
   showNewElement,
   updateSequenceForWrappers,
 } from "@/scripts/game/wrapperManager";
+import { fetchMapping } from "@/scripts/game/keymappings";
 
 const GameLogicWrapper = ({ children, setInitialSeq }) => {
   const { isTimeToPlay, setIsTimeToPlay, setHasWonRound } = useGameTurn(); // Game state
@@ -35,7 +36,9 @@ const GameLogicWrapper = ({ children, setInitialSeq }) => {
   // Function to generate or extend the win sequence
   const generateWinSequence = (isFirst = false) => {
     const symbols = ["w", "a", "s", "d", "f", "g"];
-    const newSymbol = isFirst ? "g" : symbols[Math.floor(Math.random() * symbols.length)];
+    const newSymbol = isFirst
+      ? "g"
+      : symbols[Math.floor(Math.random() * symbols.length)];
     const newSequence = winSequenceRef.current + newSymbol;
 
     showNewElement(newSymbol);
@@ -77,6 +80,9 @@ const GameLogicWrapper = ({ children, setInitialSeq }) => {
       sharedMakeyMakeyHandler.addFunction(key, () => gameKeyPressed(key));
     });
 
+    const mapping = fetchMapping();
+    console.log("Loaded Key Mapping:", mapping);
+
     sharedMakeyMakeyHandler.addFunction(" ", () => {
       updateSequenceForWrappers([]);
       setUserSequence(""); // Reset user sequence on spacebar
@@ -94,11 +100,7 @@ const GameLogicWrapper = ({ children, setInitialSeq }) => {
     };
   }, [isTimeToPlay]); // Re-register if `isTimeToPlay` changes
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
 export default GameLogicWrapper;
