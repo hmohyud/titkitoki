@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-const GameTurnWrapper = () => {
+const GameTurnWrapper = ({ initialSeq }) => {
   const wrapperRef = useRef(null); // Ref to the wrapper element
 
   return (
@@ -11,7 +11,7 @@ const GameTurnWrapper = () => {
       className="relative w-[500px] h-[92%] flex flex-col bg-black text-white rounded-lg turn-wrapper"
     >
       {/* Header */}
-      <div className="header text-center mt-4">
+      <div className="wrapper-header text-center mt-4">
         <h1 className="text-xl font-bold sequence-title">
           Recall the sequence
         </h1>
@@ -26,6 +26,7 @@ const GameTurnWrapper = () => {
           Current Sequence
         </h2>
         <div className="flex sequence-boxes mt-4">
+          {initialSeq}
           {/* This container will hold dynamically added symbol boxes */}
         </div>
       </div>

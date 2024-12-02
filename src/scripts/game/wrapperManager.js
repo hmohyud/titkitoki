@@ -22,7 +22,22 @@ export const showNewElement = (element) => {
   console.log("Received new element:", element); // Placeholder for future logic
   const wrappers = getAllWrappers();
   wrappers.forEach((wrapper) => {
-    wrapper.style.backgroundColor = "purple";
+    const title = wrapper.querySelector(".sequence-title");
+    const instruction = wrapper.querySelector(".sequence-instructions");
+    const instructionBottom = wrapper.querySelector(".restart-instruction");
+    const currentSequenceTitle = wrapper.querySelector(
+      ".current-sequence-title"
+    );
+    const sequenceBoxes = wrapper.querySelector(".sequence-boxes");
+
+    // Set the title to remembering the new Symbol
+    title.innerHTML = "New Symbol";
+    instruction.innerHTML = "Remember Your new symbol";
+    instructionBottom.innerHTML = "Press SPACE to continue";
+    currentSequenceTitle.innerHTML = "New Symbol";
+    sequenceBoxes.innerHTML = element;
+
+    wrapper.style.backgroundColor = "rgb(168,85,247)";
   });
 };
 

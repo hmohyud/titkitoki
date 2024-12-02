@@ -84,7 +84,7 @@ const VideoWrapper = ({ videoId, onRemove }) => {
 
   return (
     <div ref={wrapperRef} className="relative w-[500px] h-[92%] flex">
-      <div className="w-full h-full bg-black text-white rounded-lg">
+      <div className="w-full h-full bg-black text-white rounded-lg ">
         {/* YT Player will go into here when the video is loaded */}
         <div ref={playerRef} className="w-full h-full" />
       </div>

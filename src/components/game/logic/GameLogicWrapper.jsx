@@ -10,7 +10,7 @@ import {
   updateSequenceForWrappers,
 } from "@/scripts/game/wrapperManager";
 
-const GameLogicWrapper = ({ children }) => {
+const GameLogicWrapper = ({ children, setInitialSeq }) => {
   const { isTimeToPlay, setIsTimeToPlay, setHasWonRound } = useGameTurn(); // Game state
   const [winSequence, setWinSequence] = useState(""); // Win sequence
   const [userSequence, setUserSequence] = useState(""); // User input sequence
@@ -33,15 +33,16 @@ const GameLogicWrapper = ({ children }) => {
   }, [isTimeToPlay]);
 
   // Function to generate or extend the win sequence
-  const generateWinSequence = () => {
+  const generateWinSequence = (isFirst = false) => {
     const symbols = ["w", "a", "s", "d", "f", "g"];
-    const newSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+    const newSymbol = isFirst ? "g" : symbols[Math.floor(Math.random() * symbols.length)];
     const newSequence = winSequenceRef.current + newSymbol;
 
     showNewElement(newSymbol);
 
     setWinSequence(newSequence);
-    console.log("New win sequence:", newSequence);
+
+    return newSymbol;
   };
 
   // Function to handle key presses
@@ -77,12 +78,13 @@ const GameLogicWrapper = ({ children }) => {
     });
 
     sharedMakeyMakeyHandler.addFunction(" ", () => {
+      updateSequenceForWrappers([]);
       setUserSequence(""); // Reset user sequence on spacebar
     });
 
     // Generate the initial win sequence
-    if (winSequenceRef.current.length == 0) {
-      generateWinSequence();
+    if (winSequenceRef.current.length === 0) {
+      generateWinSequence(true); // Pass `true` to ensure the first symbol is "g"
     }
 
     // Cleanup on unmount
@@ -94,10 +96,6 @@ const GameLogicWrapper = ({ children }) => {
 
   return (
     <div>
-      <div className="game-info fixed top-4">
-        <p>Win Sequence: {winSequence}</p>
-        <p>Your Sequence: {userSequence}</p>
-      </div>
       {children}
     </div>
   );
